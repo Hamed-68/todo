@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 from task.models import Task
 from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 
 # ------------------------ TASK LIST -----------------------------------
-class TaskListView(ListView):
+class TaskListView(LoginRequiredMixin, ListView):
     template_name = 'task/home.html'
 
     def get_queryset(self):
@@ -16,7 +18,7 @@ class TaskListView(ListView):
         return queryset
 
 # ------------------------ TASK LIST -----------------------------------
-class DetailTask(DetailView):
+class DetailTask(LoginRequiredMixin, DetailView):
     template_name = 'task/detail.html'
 
     def get_queryset(self):
