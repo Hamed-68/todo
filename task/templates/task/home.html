@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Home</h1>
+    <div>
+        {% for task in task_list %}
+            <ul>
+                <li>
+                    <a href="{% url 'task:task_detail' task.pk %}"><strong>{{ task.title }}</strong></a>
+                    <p>{{ task.due_date }}</p>
+                </li>
+            </ul>
+        {% empty %}
+            <p>There is no task</p>
+        {% endfor %}
+    </div>
+{% endblock %}

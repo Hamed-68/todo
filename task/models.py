@@ -27,3 +27,6 @@ class Task(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     passed = models.BooleanField(default=False)     # Indicates whether the task is done or not
+
+    def __str__(self):
+        return self.title
