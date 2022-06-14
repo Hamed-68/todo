@@ -4,5 +4,9 @@
     <div>
         <strong>{{ object.title }}</strong>
         <p>{{ object.notes }}</p>
+        <p>{{ object.due_date }}</p>
+        <p>{{ object.get_priority_display }}</p>
+        <p>{{ object.passed }}</p>
+        <a href="{% url 'task:update' object.pk %}">Edit</a>
     </div>
 {% endblock %}
