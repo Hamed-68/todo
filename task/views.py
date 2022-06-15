@@ -1,10 +1,11 @@
+from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from task.models import Task
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from task.forms import TaskForm
+from task.forms import TaskForm, SearchForm
 
 
 # ------------------------ TASK LIST -----------------------------------
@@ -13,10 +14,22 @@ class TaskListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        today = timezone.now().date()
-        # list today's tasks belong request.user
-        queryset = Task.objects.filter(user=user, due_date__date=today)
+        date = timezone.now().date()
+        if self.request.GET.get('date'):
+            date = self.request.GET.get('date')
+        # list tasks by date belong request.user
+        try:
+            queryset = Task.objects.filter(user=user, due_date__date=date)
+        except ValidationError:
+            return Task.objects.filter(user=user)
         return queryset
+        
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = SearchForm       # form for search tasks by date
+        context['form'] = form
+        return context
 
 # ------------------------ TASK DETAIL -----------------------------------
 class DetailTask(LoginRequiredMixin, DetailView):
@@ -31,7 +44,7 @@ class DetailTask(LoginRequiredMixin, DetailView):
 class CreateTask(LoginRequiredMixin, CreateView):
     template_name = 'task/create.html'
     form_class = TaskForm
-    success_url = reverse_lazy('task:list')
+    success_url = reverse_lazy('task:home')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
