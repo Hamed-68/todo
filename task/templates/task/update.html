@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% include 'task/admindatewidget.html' %}
     <strong>{{ object.title }}</strong>
     <form method="post">
         {% csrf_token %}
