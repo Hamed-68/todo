@@ -1,7 +1,7 @@
 from django.forms import ValidationError
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from task.models import Task
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -58,6 +58,16 @@ class UpdateTask(LoginRequiredMixin, UpdateView):
     form_class = TaskForm
     success_url = reverse_lazy('task:home')
     model = Task
+
+    def get_queryset(self):
+        user = self.request.user
+        queryset = Task.objects.filter(user=user)
+        return queryset
+
+# ------------------------ DELETE TASK -----------------------------------
+class DeleteTask(LoginRequiredMixin, DeleteView):
+    template_name = 'task/delete.html'
+    success_url = reverse_lazy('task:home')
 
     def get_queryset(self):
         user = self.request.user

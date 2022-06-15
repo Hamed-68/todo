@@ -11,12 +11,14 @@
             <input type="submit" value="Search">
         </form>
     </div>
+
     <div>
         {% for task in task_list %}
             <ul>
                 <li>
                     <a href="{% url 'task:detail' task.pk %}"><strong>{{ task.title }}</strong></a>
                     <p>{{ task.due_date }}</p>
+                    <a href="{% url 'task:delete' task.pk %}">Delete</a>
                 </li>
             </ul>
         {% empty %}
