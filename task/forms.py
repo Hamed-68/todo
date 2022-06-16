@@ -24,3 +24,10 @@ class SearchForm(forms.Form):
     search = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'search title or note'})
     )
+
+class SearchPriorityForm(forms.ModelForm):
+
+    class Meta():
+        model = Task
+        fields = ('priority',)
+        widgets = {'priority': forms.Select()}

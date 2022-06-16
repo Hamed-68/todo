@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from task.models import Task
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from task.forms import TaskForm, SearchByDateForm, SearchForm
+from task.forms import TaskForm, SearchByDateForm, SearchForm, SearchPriorityForm
 from django.db.models import Q
 
 
@@ -25,6 +25,9 @@ class TaskListView(LoginRequiredMixin, ListView):
         elif self.request.GET.get('search'):
             search = self.request.GET.get('search')
             queryset = queryset.filter(Q(title__icontains=search) | Q(notes__icontains=search))
+        elif self.request.GET.get('priority'):
+            priority = self.request.GET.get('priority')
+            queryset = queryset.filter(priority=priority)
         return queryset
         
 
@@ -32,8 +35,10 @@ class TaskListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         form = SearchByDateForm       # form for search tasks by date
         search_form = SearchForm      # from for search tasks by title or note
+        priority_form = SearchPriorityForm      # filter by priority
         context['form'] = form
         context['search_form'] = search_form
+        context['priority_form'] = priority_form
         return context
 
 # ------------------------ TASK DETAIL -----------------------------------

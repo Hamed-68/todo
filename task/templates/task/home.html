@@ -6,6 +6,14 @@
     <h1>Home</h1>
 
     <div>
+        filter by priority:
+        <form action="{% url 'task:home' %}" method="get">
+            {{ priority_form }}
+            <input type="submit" value="Select">
+        </form>
+    </div>
+
+    <div>
         search by title or note:
         <form action="{% url 'task:home' %}" method="get">
             {{ search_form }}
