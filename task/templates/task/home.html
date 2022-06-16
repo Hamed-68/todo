@@ -4,6 +4,15 @@
 {% block content %}
     {% include 'task/admindatewidget.html' %}
     <h1>Home</h1>
+
+    <div>
+        search by title or note:
+        <form action="{% url 'task:home' %}" method="get">
+            {{ search_form }}
+            <input type="submit" value="Search">
+        </form>
+    </div>
+
     <div>
         <p>filter by date:</p>
         <form method="get" action="{% url 'task:home' %}">

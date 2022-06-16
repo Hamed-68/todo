@@ -15,7 +15,12 @@ class TaskForm(forms.ModelForm):
         }
 
 
-class SearchForm(forms.Form):                           # for filter tasks by date
+class SearchByDateForm(forms.Form):                           # for filter tasks by date
     date = forms.DateField(
         widget=AdminDateWidget(attrs={'placeholder': 'YYYY-MM-DD'})
 )
+
+class SearchForm(forms.Form):
+    search = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'search title or note'})
+    )

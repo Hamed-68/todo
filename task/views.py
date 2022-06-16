@@ -5,30 +5,35 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from task.models import Task
 from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
-from task.forms import TaskForm, SearchForm
+from task.forms import TaskForm, SearchByDateForm, SearchForm
+from django.db.models import Q
 
 
 # ------------------------ TASK LIST -----------------------------------
 class TaskListView(LoginRequiredMixin, ListView):
     template_name = 'task/home.html'
 
-    def get_queryset(self):
+    def get_queryset(self):               # list tasks by date or search belong user
         user = self.request.user
-        date = timezone.now().date()
+        queryset = Task.objects.filter(user=user)
         if self.request.GET.get('date'):
             date = self.request.GET.get('date')
-        # list tasks by date belong request.user
-        try:
-            queryset = Task.objects.filter(user=user, due_date__date=date)
-        except ValidationError:
-            return Task.objects.filter(user=user)
+            try:
+                queryset = queryset.filter(due_date__date=date)
+            except ValidationError:
+                return None
+        elif self.request.GET.get('search'):
+            search = self.request.GET.get('search')
+            queryset = queryset.filter(Q(title__icontains=search) | Q(notes__icontains=search))
         return queryset
         
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        form = SearchForm       # form for search tasks by date
+        form = SearchByDateForm       # form for search tasks by date
+        search_form = SearchForm      # from for search tasks by title or note
         context['form'] = form
+        context['search_form'] = search_form
         return context
 
 # ------------------------ TASK DETAIL -----------------------------------
