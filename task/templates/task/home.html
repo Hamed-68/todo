@@ -43,4 +43,5 @@
         {% endfor %}
         <a href="{% url 'task:create' %}">Create task</a>
     </div>
+    <p>{{ request.user.profile }}</p>
 {% endblock %}
