@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
+{% block title %}edit-task{% endblock %}
 
 {% block content %}
-    {% include 'task/admindatewidget.html' %}
-    <strong>{{ object.title }}</strong>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Update">
-    </form>
+{% include 'task/admindatewidget.html' %}
+    <div class="container">
+        <p>edit <strong>{{ object.title }}</strong></p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Update">
+        </form>
+    </div>
+    
+    
 {% endblock %}
