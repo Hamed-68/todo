@@ -41,15 +41,6 @@ class TaskListView(LoginRequiredMixin, ListView):
         context['priority_form'] = priority_form
         return context
 
-# ------------------------ TASK DETAIL -----------------------------------
-class DetailTask(LoginRequiredMixin, DetailView):
-    template_name = 'task/detail.html'
-
-    def get_queryset(self):
-        user = self.request.user
-        queryset = Task.objects.filter(user=user)
-        return queryset
-
 # ------------------------ CREATE TASK -----------------------------------
 class CreateTask(LoginRequiredMixin, CreateView):
     template_name = 'task/create.html'

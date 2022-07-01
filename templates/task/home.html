@@ -40,7 +40,7 @@
     {% for task in task_list %}
         <ul>
             <li class="border border-success p-2 border-opacity-10">
-                <p class="task-list"><a href="{% url 'task:detail' task.pk %}"><strong>{{ task.title }}</strong></a></p>
+                <p class="task-list"><a href="{% url 'task:update' task.pk %}"><strong>{{ task.title }}</strong></a></p>
                 <p class="task-list">{{ task.due_date }}</p>
                 <p class="task-list"><a href="{% url 'task:delete' task.pk %}"><img src="static/images/trash3.svg" alt="delete"></a> | 
                 <a href="{% url 'task:update' task.pk %}"><img src="static/images/pencil-square.svg" alt="edit"></a>

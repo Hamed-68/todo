@@ -1,5 +1,3 @@
-from calendar import Calendar
-from logging import PlaceHolder
 from django import forms
 from task.models import Task
 from django.contrib.admin.widgets import AdminDateWidget
