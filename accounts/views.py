@@ -17,3 +17,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'accounts/update.html'
     success_url = reverse_lazy('task:home')
     form_class = UserUpdateForm
+    
+    def get_queryset(self):
+        queryset = User.objects.filter(id=self.request.user.id)
+        return queryset
