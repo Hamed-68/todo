@@ -2,16 +2,18 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div>
-    <h3>Join us and enjoy:</h3>
-    <form method="post">
+{% include 'task/admindatewidget.html' %}
+
+<div class="container">
+    <p>Join us and enjoy:</p>
+    <form method="post" class="login-form">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
         <input type="submit" value="Login">
     </form>
-    <p>forget password? <a href="{% url 'accounts:password_reset' %}">reset password</a></p>
+    <p><a href="{% url 'accounts:password_reset' %}">forget password?</a></p>
     <p>don't have an account? <a href="{% url 'accounts:register' %}">Sign up</a></p>
 
 </div>

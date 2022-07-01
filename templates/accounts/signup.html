@@ -2,12 +2,16 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
-<h3>Sign up here:</h3>
-<form method="post">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    </table>
-    <input type="submit" value="Sign up">
-</form>
+{% include 'task/admindatewidget.html' %}
+
+<div class="container">
+    <p>Sign up here:</p>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <table>
+        {{ form.as_table }}
+        </table>
+        <input type="submit" value="Sign up">
+    </form>
+</div>
 {% endblock %}

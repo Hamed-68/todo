@@ -2,13 +2,17 @@
 {% block title %}update user{% endblock %}
 
 {% block content %}
-<h3>udate your profile:</h3>
-<form method="post" enctype="multipart/form-data">
+{% include 'task/admindatewidget.html' %}
+
+<div class="container">
+<p>udate your profile:</p>
+<form method="post" class="login-form">
     {% csrf_token %}
     <table>
         {{ form.as_table }}
-        {{ profile_form.as_table }}
     </table>
     <input type="submit" value="Update">
-</form>
+</form><br><br>
+<a href="{% url 'accounts:password_change' %}">change your password</a>
+</div>
 {% endblock %}
