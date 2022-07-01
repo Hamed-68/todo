@@ -2,46 +2,55 @@
 {% load static %}
 
 {% block content %}
-    {% include 'task/admindatewidget.html' %}
-    <h1>Home</h1>
+  {% include 'task/admindatewidget.html' %}
 
-    <div>
-        filter by priority:
-        <form action="{% url 'task:home' %}" method="get">
-            {{ priority_form }}
-            <input type="submit" value="Select">
-        </form>
-    </div>
+<div class="container">
+<ul class="nav">
+  
+  <li>
+    <form action="{% url 'task:home' %}" method="get">
+        {{ priority_form }}
+        <input type="submit" value="Select">
+    </form>
+  </li>
 
-    <div>
-        search by title or note:
-        <form action="{% url 'task:home' %}" method="get">
-            {{ search_form }}
-            <input type="submit" value="Search">
-        </form>
-    </div>
+  <li>
+    <form method="get" action="{% url 'task:home' %}">
+        {{ form }}
+        <input type="submit" value="Search">
+    </form>
+  </li>
 
-    <div>
-        <p>filter by date:</p>
-        <form method="get" action="{% url 'task:home' %}">
-            {{ form }}
-            <input type="submit" value="Search">
-        </form>
-    </div>
+  <li>
+    <form action="{% url 'task:home' %}" method="get">
+      {{ search_form }}
+      <input type="submit" value="Search">
+    </form>
+  </li>
+</ul>
+</div>
+    
+<div class="container">
+    <ul>
+        <li class="border border-success p-2 border-opacity-10">
+            <p class="task-list"></p><p class="task-list">Add new task</p>
+            <p class="task-list"><a href="{% url 'task:create' %}"><img src="static/images/plus-square.svg" alt="add new"></a></p>
+        </li>
+    </ul>
+    {% for task in task_list %}
+        <ul>
+            <li class="border border-success p-2 border-opacity-10">
+                <p class="task-list"><a href="{% url 'task:detail' task.pk %}"><strong>{{ task.title }}</strong></a></p>
+                <p class="task-list">{{ task.due_date }}</p>
+                <p class="task-list"><a href="{% url 'task:delete' task.pk %}"><img src="static/images/trash3.svg" alt="delete"></a> | 
+                <a href="{% url 'task:update' task.pk %}"><img src="static/images/pencil-square.svg" alt="edit"></a>
+                </p>
+            </li>
+        </ul>
+    {% empty %}
+        <p class="empty-task">OOOPS!</p>
+        <p>There is no task.</p>
+    {% endfor %}
+</div>
 
-    <div>
-        {% for task in task_list %}
-            <ul>
-                <li>
-                    <a href="{% url 'task:detail' task.pk %}"><strong>{{ task.title }}</strong></a>
-                    <p>{{ task.due_date }}</p>
-                    <a href="{% url 'task:delete' task.pk %}">Delete</a>
-                </li>
-            </ul>
-        {% empty %}
-            <p>There is no task</p>
-        {% endfor %}
-        <a href="{% url 'task:create' %}">Create task</a>
-    </div>
-    <p>{{ request.user.profile }}</p>
 {% endblock %}
