@@ -1,6 +1,5 @@
 from django import forms
 from task.models import Task
-from django.contrib.admin.widgets import AdminDateWidget
 
 
 class TaskForm(forms.ModelForm):
@@ -9,13 +8,13 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ('title', 'notes', 'priority', 'due_date')
         widgets = {
-            'due_date': AdminDateWidget(attrs={'placeholder': 'YYYY-MM-DD'})
+            'due_date': forms.DateTimeInput(attrs={'type': 'datetime-local'})
         }
 
 
 class SearchByDateForm(forms.Form):                           # for filter tasks by date
     date = forms.DateField(
-        widget=AdminDateWidget(attrs={'placeholder': 'YYYY-MM-DD'})
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'})
 )
 
 class SearchForm(forms.Form):
