@@ -6,11 +6,13 @@ and filter tasks by date or priority, or search tasks by title and notes.
 
 # to use this app 
 1. download it
-2. ```bash
-3. python3 manage.py makemigrations
-4. ```
-5. ```bash
-6. python3 manage.py migrate
+2. 
+```bash
+python3 manage.py makemigrations
+```
+3.
+```bash
+python3 manage.py migrate
 ```
 
 GOOD LOCK.
