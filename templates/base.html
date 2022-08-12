@@ -11,11 +11,11 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid">
+    <nav class="navbar navbar-dark bg-dark py-1">
+        <div class="container">
             <a class="navbar-brand" href="{% url 'task:home' %}">Home</a>
             {% if user.is_authenticated %}
-            <p>
+            <p class="my-0">
                 <a class="navbar-brand" href="{% url 'accounts:update' user.pk %}">{{ request.user.username }}</a>
                 <a class="navbar-brand" href="{% url 'accounts:logout' %}">Logout</a>
             </p>

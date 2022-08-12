@@ -2,17 +2,21 @@
 {% block title %}update user{% endblock %}
 
 {% block content %}
-{% include 'task/admindatewidget.html' %}
+{% load crispy_forms_tags %}
 
-<div class="container">
-<p>udate your profile:</p>
-<form method="post" class="login-form">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="Update">
-</form><br><br>
-<a href="{% url 'accounts:password_change' %}">change your password</a>
+<div class="container mt-2 col-6 mx-auto">
+<div class="text-center py-2 fs-4 bg-primary bg-opacity-75 shadow border border-2 border-primary border-opacity-50 border-bottom-0 rounded-top">
+    Update profile
+</div>
+<div class="bg-primary bg-opacity-25 border border-2 border-primary border-opacity-50 border-top-0 px-4 py-2 rounded-bottom shadow" >
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</div>
+<div class="mt-4">
+    <a class="text-decoration-none" href="{% url 'accounts:password_change' %}">change your password</a>
+</div>
+
 </div>
 {% endblock %}

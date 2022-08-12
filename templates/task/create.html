@@ -2,13 +2,18 @@
 {% load static %}
 {% block title %}new-task{% endblock %}
 {% block content %}
-    {% include 'task/admindatewidget.html' %}
-    <div class="container">
-        <h1>Add new task:</h1>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Create">
-        </form>
+{% load crispy_forms_tags %}
+
+    <div class="container mt-2 col-6 mx-auto">
+        <div class="text-center p-3 fs-4 bg-primary bg-opacity-75 shadow border border-2 border-primary border-opacity-50 border-bottom-0 rounded-top">
+            Create new task
+        </div>
+        <div class="bg-primary bg-opacity-25 border border-2 border-primary border-opacity-50 border-top-0 px-5 py-2 rounded-bottom shadow" >
+            <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+            </form>
+        </div>
+        
     </div>
 {% endblock %}

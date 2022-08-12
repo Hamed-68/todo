@@ -2,20 +2,25 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-{% include 'task/admindatewidget.html' %}
+{% load crispy_forms_tags %}
 
-<div class="container">
-    <p>Join us and enjoy:</p>
-    <form method="post" class="login-form">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
-        <input type="submit" value="Login">
-    </form>
-    <p><a href="{% url 'accounts:password_reset' %}">forget password?</a></p>
-    <p>don't have an account? <a href="{% url 'accounts:register' %}">Sign up</a></p>
-
+<div class="container mt-2 col-4 mx-auto">
+    <div class="text-center py-2 fs-4 bg-primary bg-opacity-75 shadow border border-2 border-primary border-opacity-50 border-bottom-0 rounded-top">
+        Login here
+    </div>
+    <div class="bg-primary bg-opacity-25 border border-2 border-primary border-opacity-50 border-top-0 px-4 py-2 rounded-bottom shadow" >
+        <form method="post">
+            {% csrf_token %}
+                {{ form|crispy }}
+            <div class="d-flex justify-content-center mb-2">
+                <input class="btn btn-primary" type="submit" value="Login">
+            </div>
+        </form>
+    </div>
+    <p class="mt-3">
+        <a class="text-decoration-none" href="{% url 'accounts:password_reset' %}">forget password?</a>
+    </p>
+    <p>don't have an account? <a class="text-decoration-none" href="{% url 'accounts:register' %}">Sign up</a></p>
 </div>
     
 {% endblock %}

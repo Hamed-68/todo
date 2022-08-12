@@ -2,16 +2,17 @@
 {% block title %}Sign up{% endblock %}
 
 {% block content %}
-{% include 'task/admindatewidget.html' %}
+{% load crispy_forms_tags %}
 
-<div class="container">
-    <p>Sign up here:</p>
-    <form method="post" class="login-form">
-        {% csrf_token %}
-        <table>
-        {{ form.as_table }}
-        </table>
-        <input type="submit" value="Sign up">
-    </form>
+<div class="container m-2 col-9 mx-auto">
+    <div class="text-center py-2 fs-4 bg-primary bg-opacity-75 shadow border border-2 border-primary border-opacity-50 border-bottom-0 rounded-top">
+        Sign up
+    </div>
+    <div class="bg-primary bg-opacity-25 border border-2 border-primary border-opacity-50 border-top-0 px-4 py-2 rounded-bottom shadow" >
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            {% crispy form %}
+        </form>
+    </div>
 </div>
 {% endblock %}

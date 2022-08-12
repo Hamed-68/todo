@@ -2,15 +2,14 @@
 {% block title %}edit-task{% endblock %}
 
 {% block content %}
-{% include 'task/admindatewidget.html' %}
 
-    <div class="container">
-        <p>Delete <strong>{{ object.title }}</strong></p>
-        <form method="post">
+    <div class="container text-center">
+        <div class="col-lg-8 mx-auto border border-bottom-0 border-2 border-warning bg-warning bg-opacity-75 rounded-top shadow py-3 fs-4 mt-4">Delete <strong>{{ object.title }}</strong></div>
+        <form class="col-lg-8 mx-auto border border-top-0 border-2 border-dark bg-dark bg-opacity-75 py-5 rounded-bottom shadow" method="post">
             {% csrf_token %}
-            <p>Are you sure you want to delete <strong>{{ object.title }}</strong>?</p>
-            <input type="submit" value="Delete">
-            <input type="submit" value="Cancel" onclick="window.location.href='{% url 'task:home' %}';return false;"> 
+            <p  class="fs-5 text-warning">Are you sure you want to delete <strong>{{ object.title }}</strong>?</p>
+            <input class="btn btn-primary me-3 mt-4" type="submit" value="Cancel" onclick="window.location.href='{% url 'task:home' %}';return false;"> 
+            <input class="btn btn-danger mt-4" type="submit" value="Delete">
         </form>
     </div>
 {% endblock %}

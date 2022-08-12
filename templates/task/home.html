@@ -2,54 +2,88 @@
 {% load static %}
 
 {% block content %}
-  {% include 'task/admindatewidget.html' %}
+{% load crispy_forms_tags %}
 
-<div class="container">
-<ul class="nav">
+ <!-- navbar search -->
+<div>
+  <nav class="navbar navbar-expand-lg bg-success bg-opacity-50 pb-0">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="d-flex mx-auto">
+          <div class="">
+            <form class="form-inline" action="{% url 'task:home' %}" method="get">
+            {% crispy priority_form %}
+            </form>
+          </div>
   
-  <li>
-    <form action="{% url 'task:home' %}" method="get">
-        {{ priority_form }}
-        <input type="submit" value="Select">
-    </form>
-  </li>
+          <div class="mx-5">
+            <form method="get" action="{% url 'task:home' %}">
+            {% crispy form %}
+            </form>
+          </div>
+  
+          <div class="">
+            <form action="{% url 'task:home' %}" method="get">
+            {% crispy search_form %}
+            </form>
+          </div>
+        </div>
 
-  <li>
-    <form method="get" action="{% url 'task:home' %}">
-        {{ form }}
-        <input type="submit" value="Search">
-    </form>
-  </li>
-
-  <li>
-    <form action="{% url 'task:home' %}" method="get">
-      {{ search_form }}
-      <input type="submit" value="Search">
-    </form>
-  </li>
-</ul>
+      </div>
+    </div>
+  </nav>
 </div>
     
+<!-- task list -->
 <div class="container">
-    <ul>
-        <li class="border border-success p-2 border-opacity-10">
-            <p class="task-list"></p><p class="task-list">Add new task</p>
-            <p class="task-list"><a href="{% url 'task:create' %}"><img src="static/images/plus-square.svg" alt="add new"></a></p>
+    <ul class="list-group my-4">
+        <li class="col-md-4 list-group-item p-1 px-2 d-flex justify-content-between bg-primary text-light shadow">
+            <p class="fs-5 my-0">Add new task</p>
+            <p class="d-flex align-items-center my-0">
+              <a title="Add" href="{% url 'task:create' %}">
+                <img src="static/images/plus-square.svg" alt="add new">
+              </a>
+            </p>
         </li>
     </ul>
-    {% for task in task_list %}
-        <ul>
-            <li class="border border-success p-2 border-opacity-10">
-                <p class="task-list"><a href="{% url 'task:update' task.pk %}"><strong>{{ task.title }}</strong></a></p>
-                <p class="task-list">{{ task.due_date }}</p>
-                <p class="task-list"><a href="{% url 'task:delete' task.pk %}"><img src="static/images/trash3.svg" alt="delete"></a> | 
-                <a href="{% url 'task:update' task.pk %}"><img src="static/images/pencil-square.svg" alt="edit"></a>
-                </p>
-            </li>
-        </ul>
-    {% empty %}
-        <p class="empty-task">OOOPS!</p>
-        <p>There is no task.</p>
+        <div class="row list-group">
+          {% for task in task_list %}
+            <div class="col-md-7 list-group-item px-2 d-flex justify-content-between bg-warning bg-opacity-50 p-1 shadow mb-2">
+                <div class="col-5">
+                  <p class="fs-5 my-0"><a class="text-decoration-none" href="{% url 'task:update' task.pk %}">{{ task.title }}</a></p>
+                </div>
+                <div class="col-4">
+                  <p class="d-flex align-items-center my-0 text-muted">{{ task.due_date }}</p>
+                </div>
+                {% if task.passed %}
+                <div class="col-1">
+                  <p class="d-flex align-items-center my-0 text-muted">
+                    <img title="check passed" src="static/images/check-circle-fill.svg" alt="done">
+                  </p>
+                </div>
+                {% else %}
+                <div class="col-1">
+                  <p class="d-flex align-items-center my-0 text-muted">
+                    <img  title="check passed" src="static/images/x-circle-fill.svg" alt="not">
+                  </p>
+                </div>
+                {% endif %}
+                <div class="col-2">
+                  <p class="d-flex align-items-center justify-content-end my-0">
+                    <a class="me-3" title="Delete" href="{% url 'task:delete' task.pk %}"><img src="static/images/trash3.svg" alt="delete"></a>
+                    <a title="Edite" href="{% url 'task:update' task.pk %}"><img src="static/images/pencil-square.svg" alt="edit"></a>
+                  </p>
+                </div>
+            </div>
+          {% empty %}  
+        </div>
+        <div class="container text-center">
+          <p class="fs-3 pt-5">OOOPS!</p>
+          <p class="fs-5">There is no task.</p>
+        </div>
     {% endfor %}
 </div>
 
