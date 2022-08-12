@@ -40,7 +40,7 @@
 <!-- task list -->
 <div class="container">
     <ul class="list-group my-4">
-        <li class="col-md-4 list-group-item p-1 px-2 d-flex justify-content-between bg-primary text-light shadow">
+        <li class="col-lg-4 list-group-item p-1 px-2 d-flex justify-content-between bg-primary text-light shadow">
             <p class="fs-5 my-0">Add new task</p>
             <p class="d-flex align-items-center my-0">
               <a title="Add" href="{% url 'task:create' %}">
@@ -51,27 +51,27 @@
     </ul>
         <div class="row list-group">
           {% for task in task_list %}
-            <div class="col-md-7 list-group-item px-2 d-flex justify-content-between bg-warning bg-opacity-50 p-1 shadow mb-2">
-                <div class="col-5">
+            <div class="col-lg-7 list-group-item px-2 d-flex justify-content-between bg-warning bg-opacity-50 p-1 shadow mb-2">
+                <div class="col-lg-5">
                   <p class="fs-5 my-0"><a class="text-decoration-none" href="{% url 'task:update' task.pk %}">{{ task.title }}</a></p>
                 </div>
-                <div class="col-4">
+                <div class="col-lg-4">
                   <p class="d-flex align-items-center my-0 text-muted">{{ task.due_date }}</p>
                 </div>
                 {% if task.passed %}
-                <div class="col-1">
+                <div class="col-lg-1">
                   <p class="d-flex align-items-center my-0 text-muted">
                     <img title="check passed" src="static/images/check-circle-fill.svg" alt="done">
                   </p>
                 </div>
                 {% else %}
-                <div class="col-1">
+                <div class="col-lg-1">
                   <p class="d-flex align-items-center my-0 text-muted">
                     <img  title="check passed" src="static/images/x-circle-fill.svg" alt="not">
                   </p>
                 </div>
                 {% endif %}
-                <div class="col-2">
+                <div class="col-lg-2">
                   <p class="d-flex align-items-center justify-content-end my-0">
                     <a class="me-3" title="Delete" href="{% url 'task:delete' task.pk %}"><img src="static/images/trash3.svg" alt="delete"></a>
                     <a title="Edite" href="{% url 'task:update' task.pk %}"><img src="static/images/pencil-square.svg" alt="edit"></a>
