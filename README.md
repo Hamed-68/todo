@@ -6,11 +6,16 @@ and filter tasks by date or priority, or search tasks by title and notes.
 
 # to use this app 
 1. download it
+
 2. 
+```bash
+pip3 install requirements.txt
+```
+3. 
 ```bash
 python3 manage.py makemigrations
 ```
-3.
+4.
 ```bash
 python3 manage.py migrate
 ```

@@ -46,7 +46,7 @@ class TaskForm(forms.ModelForm):
 # ===================================== SEARCH BY DATE FORM =========================
 class SearchByDateForm(forms.Form):
     date = forms.DateField(
-        widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+        widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'style': 'max-width: 12em'}))
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -67,7 +67,7 @@ class SearchByDateForm(forms.Form):
 # ===================================== SEARCH FORM =================================
 class SearchForm(forms.Form):
     search = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'search title or note'})
+        widget=forms.TextInput(attrs={'placeholder': 'search title or note', 'style': 'max-width: 11em'})
     )
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
